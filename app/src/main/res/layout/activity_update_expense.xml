@@ -108,7 +108,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:hint="Category" />
+            android:hint="Category"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/etCategory"
@@ -122,9 +123,10 @@
             android:id="@+id/etNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
             android:layout_marginBottom="10dp"
-            android:hint="Note" />
+            android:hint="Note"
+            android:inputType="textMultiLine"
+            android:minHeight="48dp" />
 
         <Button
             android:id="@+id/btnUpdate"
