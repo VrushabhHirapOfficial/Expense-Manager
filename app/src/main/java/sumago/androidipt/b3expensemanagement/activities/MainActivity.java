@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnAdd = findViewById(R.id.btnToAddExpense);
         btnAdd.setOnClickListener(v->{
-            startActivity(new Intent(MainActivity.this, AddExpenseActivity.class));
+            Intent intent = new Intent(MainActivity.this,AddExpenseActivity.class);
+            startActivity(intent);
         });
     }
 

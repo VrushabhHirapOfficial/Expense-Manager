@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import sumago.androidipt.b3expensemanagement.R;
 import sumago.androidipt.b3expensemanagement.activities.ExpenseInfoActivity;
+import sumago.androidipt.b3expensemanagement.activities.UpdateExpenseActivity;
 import sumago.androidipt.b3expensemanagement.helpers.DbHelper;
 import sumago.androidipt.b3expensemanagement.interfaces.onItemDeleteListener;
 import sumago.androidipt.b3expensemanagement.model.Expense;
@@ -21,7 +23,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
 
     ArrayList<Expense> expenseList;
     TextView tvName, tvAmount;
-    Button btnInfo, btnEdit, btnDelete;
+    ImageView btnInfo, btnEdit, btnDelete;
     DbHelper dbHelper;
     onItemDeleteListener onItemDeleteListener;
 
@@ -56,16 +58,17 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
 
         btnEdit.setOnClickListener(v->{
             //code to edit the item
+            Intent i = new Intent(v.getContext(), UpdateExpenseActivity.class);
+            i.putExtra("id", expenseList.get(position).getId());
+            holder.itemView.getContext().startActivity(i);
         });
 
         btnInfo.setOnClickListener(v->{
             //code to get info of the item
-            /*
             Intent i = new Intent(v.getContext(), ExpenseInfoActivity.class);
-            i.putExtra("name", expenseList.get(position).getName());
+            i.putExtra("id", expenseList.get(position).getId());
             holder.itemView.getContext().startActivity(i);
-            */
-            Toast.makeText(v.getContext(), expenseList.get(position).getNote(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(v.getContext(), expenseList.get(position).getNote(), Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -77,9 +80,9 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            btnDelete = itemView.findViewById(R.id.btnDelete);
+            btnDelete = itemView.findViewById(R.id.btndelete);
             btnInfo = itemView.findViewById(R.id.btnInfo);
-            btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnEdit = itemView.findViewById(R.id.btnedit);
             tvName = itemView.findViewById(R.id.tvExpenseName);
             tvAmount = itemView.findViewById(R.id.tvExpenseAmount);
             dbHelper = new DbHelper(itemView.getContext());
