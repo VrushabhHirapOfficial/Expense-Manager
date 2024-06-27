@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:backgroundTint="@color/red"
+    android:background="@drawable/rectangle"
+    android:layout_margin="10dp">
+
+
+    <TextView
+
+        android:id="@+id/tvCategoryName"
+        android:layout_width="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/rectangle"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:text="Null"
+        android:textColor="@color/white"
+        android:textSize="30dp">
+
+
+    </TextView>
+
+
+    <TableLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rectangle"
+        android:padding="15dp"
+        android:backgroundTint="@color/grey">
+
+
+
+        <TableRow>
+
+            <TextView
+
+                android:text="@string/minimum"
+                android:textSize="20dp">
+
+            </TextView>
+
+            <TextView
+
+                android:id="@+id/tvCategoryMin"
+                android:text="200"
+                android:textSize="20dp">
+
+            </TextView>
+
+            <TextView
+
+                android:layout_weight="1">
+
+            </TextView>
+
+            <TextView
+                android:text="@string/maximum"
+                android:textSize="20dp">
+
+            </TextView>
+
+            <TextView
+
+                android:id="@+id/tvCategoryMax"
+                android:text="200"
+                android:textSize="20dp">
+
+            </TextView>
+
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+
+                android:text="@string/average"
+                android:textSize="20dp">
+
+            </TextView>
+
+            <TextView
+
+                android:id="@+id/tvCategoryAvg"
+                android:text="200"
+                android:textSize="20dp">
+
+            </TextView>
+            <TextView
+                android:layout_weight="1">
+
+            </TextView>
+            <TextView
+                android:text="@string/total"
+                android:textSize="20dp">
+
+            </TextView>
+            <TextView
+
+                android:id="@+id/tvCategoryTotal"
+                android:text="200"
+                android:textSize="20dp">
+
+            </TextView>
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>
