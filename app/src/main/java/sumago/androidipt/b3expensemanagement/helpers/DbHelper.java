@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import sumago.androidipt.b3expensemanagement.model.AnalyticsRecord;
 import sumago.androidipt.b3expensemanagement.model.Expense;
 
 public class DbHelper extends SQLiteOpenHelper {
@@ -178,4 +179,67 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
         return categoryNames;
     }
+
+    public ArrayList<AnalyticsRecord> getAnalytics() {
+        /*
+         * SELECT category, SUM(amount), AVG(amount), MIN(amount), MAX(amount) FROM expense ORDER BY category;
+         * food,     300, 150, 20, 130
+         * clothes, 1200, 150, 20, 130
+         * */
+        ArrayList<AnalyticsRecord> recordList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cr = db.rawQuery("SELECT category, SUM(amount), AVG(amount), MIN(amount), MAX(amount) FROM expense GROUP BY category;", null);
+        if(cr.moveToFirst()){
+            do{
+                AnalyticsRecord record = new AnalyticsRecord();
+                record.setName(cr.getString(0));
+                record.setTotal(cr.getDouble(1));
+                record.setAvg(cr.getDouble(2));
+                record.setMin(cr.getDouble(3));
+                record.setMax(cr.getDouble(4));
+                recordList.add(record);
+            }while (cr.moveToNext());
+        }
+        cr.close();
+        db.close();
+        return recordList;
+    }
+
+    public ArrayList<Expense> getFilteredExpenses(String selectedCategory, String startDate, String endDate) {
+        ArrayList<Expense> list = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        //SELECT * FROM expense WHERE category=? AND date BETWEEN ? AND ?;
+        Cursor cursor = db.rawQuery("SELECT * FROM expense WHERE category=? AND date BETWEEN ? AND ?;", new String[]{selectedCategory, startDate, endDate});
+        if(cursor.moveToNext()){
+            do{
+                Expense expense = new Expense();
+                expense.setId(cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID)));
+                expense.setName(cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME)));
+                expense.setDate(cursor.getString(cursor.getColumnIndexOrThrow(COL_DATE)));
+                expense.setNote(cursor.getString(cursor.getColumnIndexOrThrow(COL_NOTE)));
+                expense.setCategory(cursor.getString(cursor.getColumnIndexOrThrow(COL_CATEGORY)));
+                expense.setAmount(cursor.getDouble(cursor.getColumnIndexOrThrow(COL_AMOUNT)));
+                list.add(expense);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+    public double getTotalAmount(String selectedCategory, String startDate, String endDate) {
+        double totalAmount = 0;
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT SUM(amount) AS total FROM expense WHERE category=? AND date BETWEEN ? AND ?;",
+                new String[]{selectedCategory, startDate, endDate});
+
+        if(cursor.moveToFirst()){
+            totalAmount = cursor.getDouble(cursor.getColumnIndexOrThrow("total"));
+        }
+        cursor.close();
+        db.close();
+        return totalAmount;
+    }
+
 }

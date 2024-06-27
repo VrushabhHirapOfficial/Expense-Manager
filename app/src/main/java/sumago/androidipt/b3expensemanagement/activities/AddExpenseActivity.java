@@ -55,21 +55,29 @@ public class AddExpenseActivity extends AppCompatActivity {
         day = calender.get(Calendar.DAY_OF_MONTH);
         month = calender.get(Calendar.MONTH);
         year = calender.get(Calendar.YEAR);
-
         categorynames = dbHelper.getAllCategories();
-        categorynames.add("others");
-        categorynames.add("Petrol");
+        categorynames.clear();
         categorynames.add("Food");
-        selecteddate = day+"-"+(month+1)+"-"+year;
+        categorynames.add("Stationary");
+        categorynames.add("Ticket");
+        categorynames.add("Rikshaw");
+        categorynames.add("Vegetables");
+        categorynames.add("Other");
+        selecteddate = year+"-"+(month+1)+"-"+day;
         tvDate.setText(selecteddate);
+
 
         spCategory.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categorynames));
         spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(categorynames.get(position).equals("Other")){
+                    etcategory.setText(null);
                     etcategory.setVisibility(View.VISIBLE);
-                } else seletedcategory = categorynames.get(position);
+                } else {
+                    etcategory.setVisibility(View.GONE);
+                    seletedcategory = categorynames.get(position);
+                }
             }
 
             @Override
@@ -93,14 +101,16 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         btnAdd.setOnClickListener(v->{
             //insert data into database
+            if(etcategory.getVisibility() == View.VISIBLE){
+                seletedcategory = etcategory.getText().toString();
+            }
             double amount = Double.parseDouble(etAmount.getText().toString());
             String name = etName.getText().toString(),
                     note = etNote.getText().toString(),
-                    date = tvDate.getText().toString(),
-                    category = etcategory.getText().toString();
+                    date = tvDate.getText().toString();
 
 
-            long result = dbHelper.insertExpense(new Expense(name, date, note, amount, category));
+            long result = dbHelper.insertExpense(new Expense(name, date, note, amount, seletedcategory));
 
             if(result>0)
                 Toast.makeText(this, "Expense Inserted Successfully", Toast.LENGTH_SHORT).show();

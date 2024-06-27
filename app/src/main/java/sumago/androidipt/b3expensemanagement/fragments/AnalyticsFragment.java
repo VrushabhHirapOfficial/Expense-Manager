@@ -3,43 +3,23 @@ package sumago.androidipt.b3expensemanagement.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import sumago.androidipt.b3expensemanagement.R;
+import sumago.androidipt.b3expensemanagement.adapters.AnalyticsListAdapter;
+import sumago.androidipt.b3expensemanagement.helpers.DbHelper;
 
 public class AnalyticsFragment extends Fragment {
-
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-
-    private String mParam1;
-    private String mParam2;
-
-    public AnalyticsFragment() {
-        // Required empty public constructor
-    }
-
-    public static AnalyticsFragment newInstance(String param1, String param2) {
-        AnalyticsFragment fragment = new AnalyticsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    RecyclerView recyclerViewAnalytics;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -47,5 +27,23 @@ public class AnalyticsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_analytics, container, false);
+    }
+
+    public void onViewCreated(View view,Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        recyclerViewAnalytics = view.findViewById(R.id.recyclerViewAnalytics);
+        loadData();
+    }
+
+    private void loadData() {
+
+        recyclerViewAnalytics.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerViewAnalytics.setAdapter(new AnalyticsListAdapter(new DbHelper(getContext()).getAnalytics()));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
     }
 }

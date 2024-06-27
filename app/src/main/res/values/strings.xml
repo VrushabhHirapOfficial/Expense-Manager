@@ -2,4 +2,9 @@
     <string name="app_name">B3ExpenseManagement</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_is_null">Category is Null</string>
+    <string name="minimum">Minimum:</string>
+    <string name="maximum">Maximum:</string>
+    <string name="average">Average:</string>
+    <string name="total">Total:</string>
 </resources>

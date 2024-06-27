@@ -58,6 +58,12 @@ public class UpdateExpenseActivity extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         categoryNames = dbHelper.getAllCategories();
+        categoryNames.clear();
+        categoryNames.add("Food");
+        categoryNames.add("Stationary");
+        categoryNames.add("Ticket");
+        categoryNames.add("Rikshaw");
+        categoryNames.add("Vegetables");
         categoryNames.add("Other");
 
 
@@ -69,7 +75,7 @@ public class UpdateExpenseActivity extends AppCompatActivity {
         etName.setText(expense.getName());
         etNote.setText(expense.getNote());
         tvDate.setText(expense.getDate());
-        //etCategory.setText(expense.getCategory());
+        etCategory.setText(expense.getCategory());
         etAmount.setText(String.valueOf(expense.getAmount()));
 
         spCategory.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categoryNames));
@@ -77,9 +83,13 @@ public class UpdateExpenseActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(categoryNames.get(position).equals("Other")){
+                    etCategory.setText(null);
                     etCategory.setVisibility(View.VISIBLE);
                 }
-                else selectedCategory = categoryNames.get(position);
+                else {
+                    etCategory.setVisibility(View.GONE);
+                    selectedCategory = categoryNames.get(position);
+                }
             }
 
             @Override

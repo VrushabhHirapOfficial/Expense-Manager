@@ -26,15 +26,16 @@
 
     <TableLayout
         android:layout_marginTop="35dp"
-        android:backgroundTint="@color/grey"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@drawable/rectangle"
+        android:backgroundTint="@color/grey"
         android:padding="10dp">
         <TableRow
             android:layout_marginTop="25dp">
             <TextView
                 android:text="Name         :"
+                android:textStyle="bold"
                 android:textSize="25sp"
                 android:padding="10dp"
 
@@ -52,6 +53,8 @@
             android:layout_marginTop="25dp">
             <TextView
                 android:text="Date           :"
+                android:textStyle="bold"
+
                 android:textSize="25sp"
                 android:padding="10dp"
                 android:layout_column="80">
@@ -68,6 +71,7 @@
             android:layout_marginTop="25dp">
             <TextView
                 android:text="Amount     :"
+                android:textStyle="bold"
                 android:textSize="25sp"
                 android:padding="10dp"
 
@@ -86,6 +90,7 @@
             android:layout_marginTop="25dp">
             <TextView
                 android:text="Category   :"
+                android:textStyle="bold"
                 android:textSize="25sp"
                 android:padding="10dp"
                 android:layout_column="80">
@@ -103,6 +108,7 @@
             android:layout_marginBottom="25dp">
             <TextView
                 android:text="Note           :"
+                android:textStyle="bold"
                 android:textSize="25sp"
                 android:padding="10dp"
                 android:layout_column="80">
